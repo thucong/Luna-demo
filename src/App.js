@@ -7,7 +7,13 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            products: [],
+            products: [{
+                id: "",
+                name: "",
+                price: "",
+                content:"",
+            }],
+            choice_delete: "",
         }
        
     }
@@ -53,6 +59,25 @@ class App extends Component {
        this.setState({products: products});
        localStorage.setItem('products', JSON.stringify(products));
     }
+    findIndex = (id) => {
+        var {products} = this.state;
+        var result = null;
+        products.forEach((product, index) => {
+            if(product.id === id){
+                result = index;
+            }
+        })
+        return result;
+    }
+    onDelete = (id) => {
+        var {products} = this.state;
+        var index = this.findIndex(id);
+        if(index !== -1){
+            products.splice(index,1);
+            this.setState({ products: products})
+        }
+        localStorage.setItem('products', JSON.stringify(products));
+    }
     render() {
         var products = this.state.products;
         console.log(products);
@@ -67,9 +92,10 @@ class App extends Component {
                     {/* <button className="btn btn-success ml-2" onClick={this.onList}>Xem sản phẩm</button> */}
                 </div>
                 <div>
-                    <ListProduct products={products}/>
+                    <ListProduct products={products} onDelete={this.onDelete} onUpdate={this.onUpdate}/>
                 </div>
                 <AddProductModal onSubmit={this.onSubmit}/>
+              
                 
             </div>
         );
