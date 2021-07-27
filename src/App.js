@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import AddProductModal from "./components/AddProductModal";
+import ListProduct from "./components/ListProduct";
+import "./style.css";
+class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            products: [],
+        }
+       
+    }
+   
+    // onList = () => {
+    //     var products = [
+    //         {
+    //             id: this.randomId(),
+    //             name: 'T-shirt',
+    //             price: 50.000,
+    //         },
+    //         {
+    //             id: this.randomId(),
+    //             name: 'tie',
+    //             price: 30.000,
+    //         },
+    //     ]
+    //     this.setState({products: products});
+    //     console.log(products);
+    //     localStorage.setItem('products', JSON.stringify(products));
+    // }
+    randomId = () => {
+        var min = 1;
+        var max = 100;
+        return min + (Math.random() * (max-min));
+    }
+    componentWillMount(){
+        if(localStorage && localStorage.getItem('products')){
+            var products = JSON.parse(localStorage.getItem('products'));
+            this.setState({ products: products});
+            console.log(products);
+        }
+    }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    onAddProduct = (e) => {
+        window.$("#addProduct").modal("show");
+    }
+
+    onSubmit = (data) => {
+       var products = this.state.products;
+       data.id = this.randomId();
+       products.push(data);
+       this.setState({products: products});
+       localStorage.setItem('products', JSON.stringify(products));
+    }
+    render() {
+        var products = this.state.products;
+        console.log(products);
+        return (
+            <div className="mt-5 container">
+                <div className="text-center">
+                    <h1 className="h1">Thông tin sản phẩm</h1> 
+                </div>
+                <hr />
+                <div className="mb-2">
+                    <button className="btn btn-primary" onClick={this.onAddProduct}> <i className="fas fa-plus"></i> Thêm sản phẩm</button>
+                    {/* <button className="btn btn-success ml-2" onClick={this.onList}>Xem sản phẩm</button> */}
+                </div>
+                <div>
+                    <ListProduct products={products}/>
+                </div>
+                <AddProductModal onSubmit={this.onSubmit}/>
+                
+            </div>
+        );
+    }
 }
-
 export default App;
