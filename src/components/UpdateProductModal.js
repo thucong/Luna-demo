@@ -1,14 +1,17 @@
 import React,{ Component } from "react";
 
-class AddProductModal extends Component{
+class UpdateProductModal extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id:"",
+            id: "",
             name: "",
             price: "",
             content: "",
         }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({...nextProps.product})
     }
     onHandleChange = (e) => {
         const target = e.target;
@@ -20,37 +23,30 @@ class AddProductModal extends Component{
       };
     
     onClose = () => {
-        this.setState({
-          name: "",
-          price: "",
-          content: "",
-        });
-        window.$("#addProduct").modal("hide");
+        window.$("#updateProduct").modal("hide");
     }
-    onSubmit = (e) => {
+   
+    onSubmitUpdate = (e) => {
         e.preventDefault();
-        this.props.onSubmit(this.state);
-        this.setState({
-            name: "",
-            price: "",
-            content: "",
-          });
+        this.props.onSubmitUpdate(this.state);
+       
     }
 
     render() {
+        let {name, price, content} = this.state;
         return (
             <div
               className="modal fade"
-              id="addProduct"
+              id="updateProduct"
               tabIndex="-1"
               role="dialog"
-              aria-labelledby="addProduct"
+              aria-labelledby="updateProduct"
               aria-hidden="true"
             >
               <div className="modal-dialog modal-lg" role="document">
                 <div className="modal-content" >
                   <div className="modal-header">
-                    <h5 className="modal-title">Thêm sản phẩm</h5>
+                    <h5 className="modal-title">Sửa sản phẩm</h5>
                     <button type="button" className="close" onClick={this.onClose}>
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -65,7 +61,7 @@ class AddProductModal extends Component{
                         size="60"
                         name="name"
                         id="name"
-                        value={this.state.name}
+                        value={name}
                         onChange={this.onHandleChange}
                       />
                     </div>
@@ -78,7 +74,7 @@ class AddProductModal extends Component{
                         size="60"
                         name="price"
                         id="price"
-                        value={this.state.price}
+                        value={price}
                         onChange={this.onHandleChange}
                       />
                     </div>
@@ -91,7 +87,7 @@ class AddProductModal extends Component{
                         placeholder="Mô tả sản phẩm"
                         id="content"
                         name="content"
-                        value={this.state.content}
+                        value={content}
                         onChange={this.onHandleChange}
                       ></textarea>
                     </div>
@@ -108,9 +104,9 @@ class AddProductModal extends Component{
                       type="button"
                       className="btn btn-success"
                       data-dismiss="modal"
-                      onClick={this.onSubmit}
+                      onClick={this.onSubmitUpdate}
                     >
-                      Thêm
+                      Sửa
                     </button>
                   </div>
                 </div>
@@ -119,4 +115,4 @@ class AddProductModal extends Component{
           );
     }
 }
-export default AddProductModal;
+export default UpdateProductModal;
