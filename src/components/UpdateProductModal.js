@@ -10,9 +10,11 @@ class UpdateProductModal extends Component{
             content: "",
         }
     }
+
     componentWillReceiveProps(nextProps) {
         this.setState({...nextProps.product})
     }
+
     onHandleChange = (e) => {
         const target = e.target;
         const name = target.name;
@@ -31,7 +33,7 @@ class UpdateProductModal extends Component{
         this.props.onSubmitUpdate(this.state);
        
     }
-
+    
     render() {
         let {name, price, content} = this.state;
         return (

@@ -7,10 +7,6 @@ class ItemProduct extends Component{
             choose_delete:""
         }
     }
-    // onChoice = (e,id) => {
-    //     this.setState({choose_delete:id})
-    //     window.$('#deleteProduct').modal('show');
-    // }
     onDelete = () => {
         this.props.onDelete(this.props.product.id);
     }

@@ -15,34 +15,16 @@ class App extends Component {
                 price: "",
                 content:"",
             }],
-            choice_delete: "",
             productUpdate: "",
         }
-       
     }
-   
-    // onList = () => {
-    //     var products = [
-    //         {
-    //             id: this.randomId(),
-    //             name: 'T-shirt',
-    //             price: 50.000,
-    //         },
-    //         {
-    //             id: this.randomId(),
-    //             name: 'tie',
-    //             price: 30.000,
-    //         },
-    //     ]
-    //     this.setState({products: products});
-    //     console.log(products);
-    //     localStorage.setItem('products', JSON.stringify(products));
-    // }
+
     randomId = () => {
         var min = 1;
         var max = 100;
         return min + (Math.random() * (max-min));
     }
+
     componentWillMount(){
         if(localStorage && localStorage.getItem('products')){
             var products = JSON.parse(localStorage.getItem('products'));
@@ -57,11 +39,8 @@ class App extends Component {
 
     onSubmit = (data) => {
        var products = this.state.products;
-      
-            data.id = this.randomId();
-            products.push(data);
-
-       
+        data.id = this.randomId();
+        products.push(data);
        this.setState({products: products});
        localStorage.setItem('products', JSON.stringify(products));
     }
@@ -87,9 +66,11 @@ class App extends Component {
         
         localStorage.setItem('products', JSON.stringify(products));
     }
+
     showFormUpdate = () => {
         window.$("#updateProduct").modal('show');
     }
+
     onUpdate = (id) => {
         var {products} = this.state;
         var index = this.findIndex(id);
@@ -110,6 +91,7 @@ class App extends Component {
         this.setState({products: products});
        localStorage.setItem('products', JSON.stringify(products));
     }
+
     render() {
         var products = this.state.products;
         var productUpdate = this.state.productUpdate;
@@ -130,8 +112,6 @@ class App extends Component {
                 </div>
                 <AddProductModal onSubmit={this.onSubmit}/>
                 <UpdateProductModal product={productUpdate} onSubmitUpdate={this.onSubmitUpdate}/>
-              
-                
             </div>
         );
     }
