@@ -28,7 +28,7 @@ class App extends Component {
         return min + (Math.random() * (max-min));
     }
 
-    componentWillMount(){
+    componentDidMount(){
         if(localStorage && localStorage.getItem('products')){
             var products = JSON.parse(localStorage.getItem('products'));
             this.setState({ products: products});
