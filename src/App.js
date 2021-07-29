@@ -78,7 +78,8 @@ class App extends Component {
             this.setState({ products: products})
             this.setState({productDelete: ""});
         }
-         localStorage.setItem('products', JSON.stringify(products));
+        localStorage.setItem('products', JSON.stringify(products));
+        window.$('#deleteProduct').modal('hide');
     }
 
     showFormUpdate = () => {
