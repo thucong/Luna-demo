@@ -7,9 +7,12 @@ class ItemProduct extends Component{
             choose_delete:""
         }
     }
-    onDelete = () => {
-        this.props.onDelete(this.props.product.id);
+    onChooseDelete = () => {
+        this.props.onChooseDelete(this.props.product.id);
     }
+    // onDelete = () => {
+    //     this.props.onDelete(this.props.product.id);
+    // }
     onUpdate = () => {
         this.props.onUpdate(this.props.product.id);
     }
@@ -20,7 +23,10 @@ class ItemProduct extends Component{
                 <th scope="row" >{index + 1 }</th>
                 <td onClick={this.onUpdate}>{product.name}</td>
                 <td>{product.price}</td>
-                <td><button className="btn btn-danger" onClick={this.onDelete}>Xóa</button></td>
+                <td className="text-center">
+                    <span>{product.status === 'true' ? 'Kích hoạt' : 'Ẩn'}</span>
+                </td>
+                <td><button className="btn btn-danger" onClick={this.onChooseDelete}>Xóa</button></td>
             </tr>
         )
     }

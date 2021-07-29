@@ -8,6 +8,7 @@ class UpdateProductModal extends Component{
             name: "",
             price: "",
             content: "",
+            status: "false",
         }
     }
 
@@ -19,6 +20,9 @@ class UpdateProductModal extends Component{
         const target = e.target;
         const name = target.name;
         const value = target.value;
+        // if(name === 'status') {
+        //     value = target.value === 'true' ? true : false;
+        // }
         this.setState({
           [name]: value,
         });
@@ -92,6 +96,13 @@ class UpdateProductModal extends Component{
                         value={content}
                         onChange={this.onHandleChange}
                       ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="content " className="mb-1">Trạng thái</label>
+                        <select  className="form-control" name="status" value={this.state.status} onChange={this.onHandleChange}>
+                            <option value={true}>Kích hoạt</option>
+                            <option value={false}>Ẩn</option>
+                        </select>
                     </div>
                   </div>
                   <div className="modal-footer">

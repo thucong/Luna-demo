@@ -13,7 +13,7 @@ class ListProduct extends Component {
         if(products.length > 0){
             result = products.map((product, index)=>{
                 return (
-                    <ItemProduct key={product.id} product={product} index={index} onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}/>
+                    <ItemProduct key={product.id} product={product} index={index}  onUpdate={this.props.onUpdate} onChooseDelete={this.props.onChooseDelete}/>
                 )
             })
         }
@@ -29,6 +29,7 @@ class ListProduct extends Component {
                     <th scope="col">STT</th>
                     <th scope="col">Tên sản phẩm</th>
                     <th scope="col">Giá sản phẩm (VNĐ)</th>
+                    <th scope="col">Trạng thái</th>
                     <th scope="col">Chức năng</th>
                 </tr>
                 </thead>

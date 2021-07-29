@@ -2,6 +2,7 @@ import { data } from "jquery";
 import React, { Component } from "react";
 import "./App.css";
 import AddProductModal from "./components/AddProductModal";
+import DeleteProductModal from "./components/DeleteProductModal";
 import ListProduct from "./components/ListProduct";
 import UpdateProductModal from "./components/UpdateProductModal";
 import "./style.css";
@@ -14,8 +15,10 @@ class App extends Component {
                 name: "",
                 price: "",
                 content:"",
+                status: false,
             }],
             productUpdate: "",
+            productDelete: ""
         }
     }
 
@@ -56,15 +59,26 @@ class App extends Component {
         return result;
     }
     
-    onDelete = (id) => {
+    showFormDelete = () => {
+        window.$('#deleteProduct').modal('show');
+    }
+    onChooseDelete = (id) => {
         var {products} = this.state;
-        var index = this.findIndex(id);
+        var index =  this.findIndex(id);
+        var productDelete = products[index];
+        this.setState({productDelete:productDelete});
+        this.showFormDelete();
+    }
+    
+    onDelete = (data) => {
+        var products = this.state.products;
+        var index = this.findIndex(data.id);
         if(index !== -1){
             products.splice(index,1);
             this.setState({ products: products})
+            this.setState({productDelete: ""});
         }
-        
-        localStorage.setItem('products', JSON.stringify(products));
+         localStorage.setItem('products', JSON.stringify(products));
     }
 
     showFormUpdate = () => {
@@ -95,8 +109,7 @@ class App extends Component {
     render() {
         var products = this.state.products;
         var productUpdate = this.state.productUpdate;
-        //console.log(productUpdate);
-       // console.log(products);
+        var productDelete = this.state.productDelete; 
         return (
             <div className="mt-5 container">
                 <div className="text-center">
@@ -108,10 +121,11 @@ class App extends Component {
                     {/* <button className="btn btn-success ml-2" onClick={this.onList}>Xem sản phẩm</button> */}
                 </div>
                 <div>
-                    <ListProduct products={products} onDelete={this.onDelete} onUpdate={this.onUpdate}/>
+                    <ListProduct products={products}  onUpdate={this.onUpdate} onChooseDelete={this.onChooseDelete}/>
                 </div>
                 <AddProductModal onSubmit={this.onSubmit}/>
                 <UpdateProductModal product={productUpdate} onSubmitUpdate={this.onSubmitUpdate}/>
+                <DeleteProductModal product={productDelete} onDelete={this.onDelete}/>
             </div>
         );
     }

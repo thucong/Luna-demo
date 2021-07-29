@@ -8,12 +8,16 @@ class AddProductModal extends Component{
             name: "",
             price: "",
             content: "",
+            status: 'false',
         }
     }
     onHandleChange = (e) => {
-        const target = e.target;
-        const name = target.name;
-        const value = target.value;
+        var target = e.target;
+        var name = target.name;
+        var value = target.value;
+        // if(name === 'status') {
+        //     value = target.value === 'true' ? true : false;
+        // }
         this.setState({
           [name]: value,
         });
@@ -34,7 +38,9 @@ class AddProductModal extends Component{
             name: "",
             price: "",
             content: "",
+            status: 'false',
           });
+         
     }
 
     render() {
@@ -94,6 +100,13 @@ class AddProductModal extends Component{
                         value={this.state.content}
                         onChange={this.onHandleChange}
                       ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="content " className="mb-1">Trạng thái</label>
+                        <select  className="form-control" name="status" value={this.state.status} onChange={this.onHandleChange}>
+                            <option value={true}>Kích hoạt</option>
+                            <option value={false}>Ẩn</option>
+                        </select>
                     </div>
                   </div>
                   <div className="modal-footer">
