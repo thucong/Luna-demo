@@ -11,13 +11,11 @@ class AddProductModal extends Component{
             status: 'false',
         }
     }
+    
     onHandleChange = (e) => {
         var target = e.target;
         var name = target.name;
         var value = target.value;
-        // if(name === 'status') {
-        //     value = target.value === 'true' ? true : false;
-        // }
         this.setState({
           [name]: value,
         });
@@ -31,6 +29,7 @@ class AddProductModal extends Component{
         });
         window.$("#addProduct").modal("hide");
     }
+
     onSubmit = (e) => {
         e.preventDefault();
         this.props.onSubmit(this.state);
